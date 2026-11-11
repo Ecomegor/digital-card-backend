@@ -41,7 +41,7 @@ type Project {
 }
 
 type Query {
-  profile: Profile!
+  profile(slug: String): Profile!
 }
 
 type Skill {

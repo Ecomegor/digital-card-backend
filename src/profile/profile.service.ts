@@ -6,11 +6,14 @@ import { ProfileRepository } from './profile.repository.js';
 export class ProfileService {
   constructor(private readonly profileRepository: ProfileRepository) {}
 
-  async getProfile(): Promise<Profile> {
-    const profile = await this.profileRepository.findFirst();
+  async getProfile(slug?: string | null): Promise<Profile> {
+    const profile =
+      slug === undefined || slug === null
+        ? await this.profileRepository.findFirst()
+        : await this.profileRepository.findBySlug(slug);
 
     if (!profile) {
-      throw new NotFoundException('Profile is not initialized');
+      throw new NotFoundException('Profile not found');
     }
 
     return profile;
