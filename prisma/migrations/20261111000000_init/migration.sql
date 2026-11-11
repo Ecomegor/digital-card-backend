@@ -1,7 +1,5 @@
--- CreateSchema
 CREATE SCHEMA IF NOT EXISTS "public";
 
--- CreateTable
 CREATE TABLE "profiles" (
     "id" UUID NOT NULL,
     "slug" TEXT NOT NULL,
@@ -13,5 +11,4 @@ CREATE TABLE "profiles" (
     CONSTRAINT "profiles_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
 CREATE UNIQUE INDEX "profiles_slug_key" ON "profiles"("slug");
