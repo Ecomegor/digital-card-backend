@@ -1,4 +1,4 @@
-import { Prisma } from '../generated/prisma/client.js';
+import { type Prisma } from '../generated/prisma/client.js';
 
 export const profileSeed = {
   slug: 'developer',

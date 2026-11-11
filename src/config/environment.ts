@@ -27,9 +27,7 @@ export function validateEnvironment(config: Record<string, unknown>): Environmen
   const errors = validateSync(variables);
 
   if (errors.length > 0) {
-    const details = errors
-      .flatMap((error) => Object.values(error.constraints ?? {}))
-      .join('; ');
+    const details = errors.flatMap((error) => Object.values(error.constraints ?? {})).join('; ');
     throw new Error(`Invalid environment configuration: ${details}`);
   }
 
