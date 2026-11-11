@@ -28,7 +28,7 @@ export class PrismaService
   async onModuleInit(): Promise<void> {
     if (this.logQueries) {
       this.$on('query', ({ query, params, duration }) => {
-        this.logger.log(`${query} ${params} +${String(duration)}ms`);
+        this.logger.log(`${query} ${params} +${duration.toFixed(1)}ms`);
       });
     }
 
