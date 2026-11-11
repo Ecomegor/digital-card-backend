@@ -20,7 +20,8 @@ COPY --from=build /app/package.json ./
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 COPY prisma.config.ts ./
-COPY prisma ./prisma
+COPY prisma/schema.prisma ./prisma/
+COPY prisma/migrations ./prisma/migrations
 COPY docker-entrypoint.sh ./
 USER node
 EXPOSE 3000

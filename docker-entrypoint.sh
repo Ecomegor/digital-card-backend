@@ -2,5 +2,5 @@
 set -e
 
 node_modules/.bin/prisma migrate deploy
-node dist/seed.js
-exec node dist/main.js
+node dist/prisma/seed.js
+exec node dist/src/main.js

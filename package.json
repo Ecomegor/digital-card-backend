@@ -10,9 +10,9 @@
   "scripts": {
     "build": "prisma generate && nest build",
     "start:dev": "prisma generate && nest start --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/main.js",
     "db:migrate": "prisma migrate dev",
-    "db:seed": "nest start --entryFile seed",
+    "db:seed": "nest start --entryFile prisma/seed",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
