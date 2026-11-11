@@ -37,7 +37,25 @@ export const profileSeed: ProfileSeed = {
     ...skillsOf('Databases', ['PostgreSQL', 'Redis', 'MongoDB']),
     ...skillsOf('DevOps', ['Docker', 'CI/CD', 'Git', 'Linux', 'Nginx']),
   ],
-  experiences: [],
+  experiences: [
+    {
+      company: 'Caether.ai',
+      position: 'Основатель, Backend-разработчик',
+      achievements: [
+        'Спроектировал и реализовал backend на TypeScript, Node.js, Go и PostgreSQL.',
+        'Развернул сервис в Docker и настроил CI/CD.',
+      ],
+    },
+    {
+      company: 'Twittor',
+      position: 'Основатель, Backend-разработчик',
+      achievements: [
+        'Реализовал обмен сообщениями в реальном времени на WebSockets.',
+        'Использовал PostgreSQL для хранения данных и Redis для кеширования.',
+        'Построил backend по принципам Clean Architecture.',
+      ],
+    },
+  ],
   projects: [
     { name: 'caether.ai', url: 'https://caether.ai' },
     { name: 'twittor.net', url: 'https://twittor.net' },
