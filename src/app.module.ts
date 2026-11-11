@@ -6,6 +6,7 @@ import { GraphqlConfigService } from './common/graphql/graphql-config.service.js
 import { HealthModule } from './health/health.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { ProfileModule } from './profile/profile.module.js';
+import { SkillsModule } from './skills/skills.module.js';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ProfileModule } from './profile/profile.module.js';
     }),
     HealthModule,
     ProfileModule,
+    SkillsModule,
   ],
 })
 export class AppModule {}
