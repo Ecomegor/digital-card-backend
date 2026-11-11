@@ -13,7 +13,7 @@
     "start:prod": "node dist/src/main.js",
     "db:migrate": "prisma migrate dev",
     "db:seed": "nest start --entryFile prisma/seed",
-    "lint": "eslint .",
+    "lint": "prisma generate && eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
