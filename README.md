@@ -152,14 +152,3 @@ npm run start:dev
 | `PRISMA_LOG_QUERIES` | `false`       | Логировать каждый SQL-запрос Prisma    |
 
 Переменные валидируются при старте, и с некорректным env приложение не запустится. Увидеть SQL в Docker: `PRISMA_LOG_QUERIES=true docker compose up --build`.
-
-## Деплой на Render
-
-1. Запушьте репозиторий на GitHub.
-2. В Render Dashboard выберите **New → Blueprint** и укажите репозиторий. Render прочитает `render.yaml` и предложит создать `developer-card-db` (PostgreSQL 17) и `developer-card-api` (Docker).
-3. Нажмите **Apply**. Render соберёт образ по `Dockerfile`.
-4. При старте контейнера в логах сервиса должны появиться `All migrations have been successfully applied`, `Profile "developer" seeded` и `Nest application successfully started`.
-5. Render проверяет `/health` перед переключением трафика. Ответ `{"status":"ok","database":"up"}` означает, что приложение подключилось к БД.
-6. Откройте `https://<имя-сервиса>.onrender.com/graphql`: там откроется Apollo Sandbox.
-
-На бесплатном плане web service засыпает при простое, поэтому первый запрос после паузы идёт медленно.
