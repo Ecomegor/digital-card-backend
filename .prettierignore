@@ -1,0 +1,6 @@
+dist/
+node_modules/
+src/generated/
+package-lock.json
+schema.gql
+prisma/migrations/
