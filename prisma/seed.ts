@@ -1,6 +1,6 @@
 import { Logger, Module } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { AppConfigModule } from '../src/config/app-config.module.js';
+import { AppConfigModule } from '../src/common/config/app-config.module.js';
 import { PrismaModule } from '../src/prisma/prisma.module.js';
 import { PrismaService } from '../src/prisma/prisma.service.js';
 import { profileSeed, type ProfileSeed } from './seed-data.js';

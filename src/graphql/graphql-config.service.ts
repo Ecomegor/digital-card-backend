@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { GqlOptionsFactory } from '@nestjs/graphql';
 import { join } from 'node:path';
-import { EnvironmentVariables, NodeEnvironment } from '../config/environment.js';
+import { EnvironmentVariables, NodeEnvironment } from '../common/config/environment.js';
 
 @Injectable()
 export class GraphqlConfigService implements GqlOptionsFactory<ApolloDriverConfig> {
