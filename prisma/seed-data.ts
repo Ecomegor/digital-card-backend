@@ -18,10 +18,13 @@ function skillsOf(category: string, names: readonly string[]): ProfileSeed['skil
 
 export const profileSeed: ProfileSeed = {
   slug: 'developer',
-  name: 'Егор',
+  name: 'Егор Шагов',
   description:
     'Backend-разработчик: TypeScript, Node.js, Go, PostgreSQL. Проектирую API и real-time системы, разворачиваю их в Docker и довожу до продакшена.',
-  links: [{ label: 'Telegram', url: 'https://t.me/egorecom' }],
+  links: [
+    { label: 'GitHub', url: 'https://github.com/Ecomegor' },
+    { label: 'Telegram', url: 'https://t.me/egorecom' },
+  ],
   skills: [
     ...skillsOf('Languages', ['Go', 'Node.js', 'TypeScript', 'PHP']),
     ...skillsOf('API & Architecture', [
