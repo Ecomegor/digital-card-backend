@@ -24,6 +24,24 @@ query {
   profile {
     name
     description
+    links {
+      label
+      url
+    }
+    skills {
+      name
+      category
+    }
+    experience {
+      company
+      position
+      period
+      achievements
+    }
+    projects {
+      name
+      url
+    }
   }
 }
 ```
@@ -50,6 +68,11 @@ npm run start:dev
 | `npm run db:seed`    | Заполняет БД данными из `prisma/seed-data.ts`        |
 | `npm run lint`       | ESLint с проверкой типов                             |
 | `npm run format`     | Prettier                                             |
+| `npm run test:e2e`   | E2E-тест количества SQL-запросов                     |
+
+E2E-тест запускается против БД из `DATABASE_URL`, к которой уже применены миграции и seed (шаги выше).
+
+Переменная `PRISMA_LOG_QUERIES=true` включает логирование каждого SQL-запроса Prisma, в том числе в Docker: `PRISMA_LOG_QUERIES=true docker compose up --build`.
 
 ## Структура
 
@@ -60,14 +83,38 @@ prisma/
   seed.ts              идемпотентный seed
   seed-data.ts         типизированные данные визитки
 src/
-  config/              валидация env через @nestjs/config и class-validator
+  common/
+    config/            валидация env через @nestjs/config и class-validator
+    dataloader/        GroupedLoader: батчинг один-ко-многим на запрос
+    graphql/           конфигурация Apollo, контекст запроса, коды ошибок
   prisma/              PrismaService с драйвер-адаптером pg
-  graphql/             конфигурация Apollo
   health/              GET /health
-  profile/             resolver → service → repository
+  profile/             профиль и его ссылки
+  skills/              навыки
+  experience/          опыт работы
+  projects/            проекты
+test/                  e2e-тест
 ```
 
-Каждый доменный модуль разделён на слои: resolver отвечает только за GraphQL и делегирует вызов, service содержит бизнес-логику, repository работает с Prisma.
+Каждый доменный модуль разделён на слои:
+
+- resolver отвечает только за GraphQL и делегирует вызов;
+- service содержит бизнес-логику и возвращает доменные типы (`profile.ts`, `skill.ts` и т. д.);
+- repository работает с Prisma и выбирает через `select` ровно поля доменного типа.
+
+Резолвер не импортирует ничего из Prisma, а сервис ничего не знает о GraphQL.
+
+## GraphQL и N+1
+
+`Query.profile` загружает только скалярные поля профиля. Связи `links`, `skills`, `experience` и `projects` объявлены через `@ResolveField` в отдельных резолверах своих модулей и загружаются через DataLoader:
+
+- `GroupedLoader` батчит идентификаторы профилей в один запрос `WHERE profile_id IN (...)` и раскладывает результат по ключам;
+- экземпляр DataLoader создаётся лениво на каждый GraphQL-контекст, то есть на каждый запрос, и хранится в `WeakMap`, поэтому кэш не переживает запрос и не делится между пользователями;
+- если связь не запрошена, её резолвер не вызывается и запроса к БД нет.
+
+Итог: запрос только скалярных полей профиля выполняет 1 SELECT, полный запрос выполняет 5 (профиль плюс по одному на каждую связь). Это проверяет `test/profile-query.e2e-spec.ts`: он подписывается на `$on('query')` Prisma и считает реальные SQL-запросы.
+
+Ошибки приводятся к кодам GraphQL: `NotFoundException` → `NOT_FOUND`, ошибки `ValidationPipe` → `BAD_USER_INPUT`. В production стек-трейсы не отдаются, а сообщения внутренних ошибок маскируются.
 
 ## Модель данных
 
