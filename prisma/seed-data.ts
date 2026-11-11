@@ -12,12 +12,28 @@ export interface ProfileSeed {
   projects: OrderedSeed<Prisma.ProjectCreateManyProfileInput>[];
 }
 
+function skillsOf(category: string, names: readonly string[]): ProfileSeed['skills'] {
+  return names.map((name) => ({ name, category }));
+}
+
 export const profileSeed: ProfileSeed = {
   slug: 'developer',
   name: 'Егор',
-  description: 'Профессиональная разработка с индивидуальным подходом',
+  description:
+    'Backend-разработчик: TypeScript, Node.js, Go, PostgreSQL. Проектирую API и real-time системы, разворачиваю их в Docker и довожу до продакшена.',
   links: [{ label: 'Telegram', url: 'https://t.me/egorecom' }],
-  skills: [],
+  skills: [
+    ...skillsOf('Languages', ['Go', 'Node.js', 'TypeScript', 'PHP']),
+    ...skillsOf('API & Architecture', [
+      'REST API',
+      'GraphQL',
+      'WebSockets',
+      'System Design',
+      'Clean Architecture',
+    ]),
+    ...skillsOf('Databases', ['PostgreSQL', 'Redis', 'MongoDB']),
+    ...skillsOf('DevOps', ['Docker', 'CI/CD', 'Git', 'Linux', 'Nginx']),
+  ],
   experiences: [],
   projects: [
     { name: 'caether.ai', url: 'https://caether.ai' },
