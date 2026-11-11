@@ -15,7 +15,8 @@
     "db:seed": "nest start --entryFile prisma/seed",
     "lint": "prisma generate && eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test:e2e": "prisma generate && tsc -p tsconfig.e2e.json && NODE_ENV=test node --test \"dist-e2e/test/**/*.e2e-spec.js\""
   },
   "dependencies": {
     "@apollo/server": "^5.5.1",

@@ -11,3 +11,4 @@ docker-compose.yml
 *.log
 coverage
 README.md
+dist-e2e

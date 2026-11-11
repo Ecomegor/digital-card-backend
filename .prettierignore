@@ -4,3 +4,4 @@ src/generated/
 package-lock.json
 schema.gql
 prisma/migrations/
+dist-e2e/

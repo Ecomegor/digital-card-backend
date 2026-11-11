@@ -4,7 +4,7 @@ import tseslint from 'typescript-eslint';
 
 export default defineConfig(
   {
-    ignores: ['dist/', 'node_modules/', 'src/generated/'],
+    ignores: ['dist/', 'dist-e2e/', 'node_modules/', 'src/generated/'],
   },
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
@@ -28,6 +28,14 @@ export default defineConfig(
       '@typescript-eslint/explicit-function-return-type': 'error',
       '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
       '@typescript-eslint/no-extraneous-class': ['error', { allowWithDecorator: true }],
+      '@typescript-eslint/no-floating-promises': [
+        'error',
+        {
+          allowForKnownSafeCalls: [
+            { from: 'package', package: 'node:test', name: ['describe', 'it'] },
+          ],
+        },
+      ],
     },
   },
   {
