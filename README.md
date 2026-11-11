@@ -155,8 +155,6 @@ npm run start:dev
 
 ## Деплой на Render
 
-`render.yaml` описывает web service на Dockerfile и managed PostgreSQL. `DATABASE_URL` берётся из БД (внутренний connection string), `PORT` выставляет сам Render.
-
 1. Запушьте репозиторий на GitHub.
 2. В Render Dashboard выберите **New → Blueprint** и укажите репозиторий. Render прочитает `render.yaml` и предложит создать `developer-card-db` (PostgreSQL 17) и `developer-card-api` (Docker).
 3. Нажмите **Apply**. Render соберёт образ по `Dockerfile`.
@@ -164,11 +162,4 @@ npm run start:dev
 5. Render проверяет `/health` перед переключением трафика. Ответ `{"status":"ok","database":"up"}` означает, что приложение подключилось к БД.
 6. Откройте `https://<имя-сервиса>.onrender.com/graphql`: там откроется Apollo Sandbox.
 
-Ограничения бесплатного плана: web service засыпает при простое, поэтому первый запрос после паузы идёт медленно, а бесплатная БД ограничена по сроку жизни (актуальные условия смотрите в документации Render). Сервис и БД должны быть в одном регионе, иначе внутренний адрес БД недоступен.
-
-## Что дальше
-
-1. Вынести миграции и seed в pre-deploy шаг или отдельный job и собрать рантайм-образ без Prisma CLI.
-2. Ограничить глубину и сложность GraphQL-запросов и добавить rate limiting: API публичный.
-3. Добавить CI (GitHub Actions): lint, `format:check`, сборку образа и e2e с PostgreSQL в service container.
-4. Кэшировать ответ: данные визитки меняются только при деплое, поэтому подойдут `Cache-Control` или кэш ответов Apollo с инвалидацией при seed.
+На бесплатном плане web service засыпает при простое, поэтому первый запрос после паузы идёт медленно.
