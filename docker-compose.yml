@@ -24,6 +24,7 @@ services:
       NODE_ENV: production
       PORT: 3000
       DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-developer_card}?schema=public
+      PRISMA_LOG_QUERIES: ${PRISMA_LOG_QUERIES:-false}
     ports:
       - '${APP_PORT:-3000}:3000'
     depends_on:

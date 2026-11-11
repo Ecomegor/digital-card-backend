@@ -1,5 +1,5 @@
-import { plainToInstance } from 'class-transformer';
-import { IsEnum, IsInt, IsUrl, Max, Min, validateSync } from 'class-validator';
+import { plainToInstance, Transform } from 'class-transformer';
+import { IsBoolean, IsEnum, IsInt, IsUrl, Max, Min, validateSync } from 'class-validator';
 
 export enum NodeEnvironment {
   Development = 'development',
@@ -18,6 +18,10 @@ export class EnvironmentVariables {
 
   @IsUrl({ protocols: ['postgres', 'postgresql'], require_tld: false })
   DATABASE_URL!: string;
+
+  @Transform(({ value }) => value === true || value === 'true')
+  @IsBoolean()
+  PRISMA_LOG_QUERIES: boolean = false;
 }
 
 export function validateEnvironment(config: Record<string, unknown>): EnvironmentVariables {
