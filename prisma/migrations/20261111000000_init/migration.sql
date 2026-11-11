@@ -5,9 +5,8 @@ CREATE SCHEMA IF NOT EXISTS "public";
 CREATE TABLE "profiles" (
     "id" UUID NOT NULL,
     "slug" TEXT NOT NULL,
-    "full_name" TEXT NOT NULL,
-    "headline" TEXT NOT NULL,
-    "bio" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 

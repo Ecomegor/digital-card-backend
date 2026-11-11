@@ -3,13 +3,11 @@
 # ------------------------------------------------------
 
 type Profile {
-  bio: String!
-  fullName: String!
-  headline: String!
+  description: String!
   id: ID!
-  slug: String!
+  name: String!
 }
 
 type Query {
-  profile(slug: String!): Profile
+  profile: Profile!
 }

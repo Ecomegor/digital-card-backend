@@ -6,14 +6,8 @@ export class ProfileModel {
   id!: string;
 
   @Field()
-  slug!: string;
+  name!: string;
 
   @Field()
-  fullName!: string;
-
-  @Field()
-  headline!: string;
-
-  @Field()
-  bio!: string;
+  description!: string;
 }

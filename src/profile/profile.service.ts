@@ -1,12 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { Profile } from '../generated/prisma/client.js';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { type Profile } from '../generated/prisma/client.js';
 import { ProfileRepository } from './profile.repository.js';
 
 @Injectable()
 export class ProfileService {
   constructor(private readonly profileRepository: ProfileRepository) {}
 
-  findBySlug(slug: string): Promise<Profile | null> {
-    return this.profileRepository.findBySlug(slug);
+  async getProfile(): Promise<Profile> {
+    const profile = await this.profileRepository.findFirst();
+
+    if (!profile) {
+      throw new NotFoundException('Profile is not initialized');
+    }
+
+    return profile;
   }
 }
