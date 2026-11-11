@@ -11,14 +11,14 @@ export class ExperienceModel {
   @Field()
   position!: string;
 
-  @Field()
-  startDate!: Date;
+  @Field(() => Date, { nullable: true })
+  startDate!: Date | null;
 
   @Field(() => Date, { nullable: true })
   endDate!: Date | null;
 
-  @Field()
-  period!: string;
+  @Field(() => String, { nullable: true })
+  period!: string | null;
 
   @Field(() => [String])
   achievements!: string[];

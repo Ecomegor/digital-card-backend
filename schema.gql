@@ -12,9 +12,9 @@ type Experience {
   company: String!
   endDate: DateTime
   id: ID!
-  period: String!
+  period: String
   position: String!
-  startDate: DateTime!
+  startDate: DateTime
 }
 
 type Profile {

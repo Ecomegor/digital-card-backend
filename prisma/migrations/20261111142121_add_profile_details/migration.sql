@@ -23,7 +23,7 @@ CREATE TABLE "experiences" (
     "profile_id" UUID NOT NULL,
     "company" TEXT NOT NULL,
     "position" TEXT NOT NULL,
-    "start_date" DATE NOT NULL,
+    "start_date" DATE,
     "end_date" DATE,
     "achievements" TEXT[] DEFAULT ARRAY[]::TEXT[],
     "sort_order" INTEGER NOT NULL,
@@ -64,7 +64,7 @@ ALTER TABLE "experiences" ADD CONSTRAINT "experiences_profile_id_fkey" FOREIGN K
 
 ALTER TABLE "projects" ADD CONSTRAINT "projects_profile_id_fkey" FOREIGN KEY ("profile_id") REFERENCES "profiles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE "experiences" ADD CONSTRAINT "experiences_period_check" CHECK ("end_date" IS NULL OR "end_date" >= "start_date");
+ALTER TABLE "experiences" ADD CONSTRAINT "experiences_period_check" CHECK ("start_date" IS NULL OR "end_date" IS NULL OR "end_date" >= "start_date");
 
 ALTER TABLE "profile_links" ADD CONSTRAINT "profile_links_sort_order_check" CHECK ("sort_order" >= 0);
 

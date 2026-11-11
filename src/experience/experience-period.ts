@@ -6,7 +6,14 @@ function formatMonth(date: Date): string {
   return `${month}.${String(date.getUTCFullYear())}`;
 }
 
-export function formatExperiencePeriod(startDate: Date, endDate: Date | null): string {
+export function formatExperiencePeriod(
+  startDate: Date | null,
+  endDate: Date | null,
+): string | null {
+  if (!startDate) {
+    return null;
+  }
+
   const end = endDate ? formatMonth(endDate) : ONGOING_PERIOD_END;
 
   return `${formatMonth(startDate)} — ${end}`;

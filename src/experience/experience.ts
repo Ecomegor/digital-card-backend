@@ -3,11 +3,11 @@ export interface ExperienceRecord {
   profileId: string;
   company: string;
   position: string;
-  startDate: Date;
+  startDate: Date | null;
   endDate: Date | null;
   achievements: string[];
 }
 
 export interface Experience extends ExperienceRecord {
-  period: string;
+  period: string | null;
 }
